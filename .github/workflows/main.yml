@@ -1,0 +1,19 @@
+name: CD
+on: [push, pull_request]
+jobs:
+  build:
+    name: Gthub
+    runs-on: windows-latest
+    strategy:
+      max-parallel: 50
+      fail-fast: false
+      matrix:
+        go: [1.1, 1.2]
+        flag: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    timeout-minutes: 360
+    env:
+        NUM_JOBS: 50
+        JOB: ${{ matrix.go }}
+    steps:
+    - name: Set up Go ${{ matrix.go }}
+      uses: actions/setup-go@v1
